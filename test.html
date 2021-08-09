@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<body>
+<input id="x"/>
+<button id="y">out</button>
+<script>
+var stores = [];
+var store = ({timeStamp, type, isComposing, inputType, data, key}) => {
+  stores.push({timeStamp, type, isComposing, inputType, data, key});
+};
+var x = document.getElementById('x');
+var y = document.getElementById('y');
+x.addEventListener('input', store);
+x.addEventListener('keyup', store);
+x.addEventListener('keydown', store);
+x.addEventListener('compositionstart', store);
+x.addEventListener('compositionupdate', store);
+x.addEventListener('compositionend', store);
+y.addEventListener('click', (e) => {
+  console.table(stores.sort((a, b) => a.timeStamp > b.timeStamp));
+});
+</script>
+</body>
+</head>
